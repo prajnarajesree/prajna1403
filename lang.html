@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LingoQuest | Learn Languages Playfully</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6A67CE;
+            --secondary: #FF7A8A;
+            --accent: #37C7BE;
+            --dark: #1E1E4B;
+            --light: #F8F9FF;
+            --card-bg: #ffffff;
+            --success: #4CC9F0;
+            --warning: #FFBE0B;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --shadow: 0 10px 30px rgba(106, 103, 206, 0.15);
+            --border-radius: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styling */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            background: var(--gradient);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-decoration {
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 350px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Progress Section */
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: var(--gradient);
+            transition: width 1s ease-in-out;
+        }
+
+        /* Language Cards */
+        .languages {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .language-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .language-image {
+            height: 160px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .language-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .language-card:hover .language-image img {
+            transform: scale(1.05);
+        }
+
+        .language-flag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .language-content {
+            padding: 20px;
+        }
+
+        .language-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .language-description {
+            color: #6c757d;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .language-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .level {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .level.beginner {
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--success);
+        }
+
+        .level.intermediate {
+            background: rgba(255, 190, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .level.advanced {
+            background: rgba(247, 37, 133, 0.2);
+            color: var(--secondary);
+        }
+
+        .start-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #5a36d6;
+        }
+
+        /* Quiz Styling */
+        .quiz-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .quiz-progress {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(110, 68, 255, 0.1);
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .prev-btn {
+            background: #f8f9fa;
+            color: var(--dark);
+        }
+
+        .prev-btn:hover {
+            background: #e9ecef;
+        }
+
+        .next-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: #5a36d6;
+        }
+
+        /* Streak Counter */
+        .streak-counter {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .streak-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .streak-label {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .languages {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        .celebration.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .celebration-content {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .celebration h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .celebration p {
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">LQ</div>
+                <span>LingoQuest</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Languages</a></li>
+                    <li><a href="#">Assignments</a></li>
+                    <li><a href="#">Progress</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <div class="avatar">JS</div>
+                <span>Hi, Jessica!</span>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Learn Languages Playfully 🌍</h1>
+                <p>Master new languages with personalized assignments, interactive challenges, and fun games. Your journey to fluency starts here!</p>
+                <button class="cta-button">Start Learning</button>
+            </div>
+            <div class="hero-decoration"></div>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Your Progress</h2>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info">
+                        <span>Spanish</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info">
+                        <span>French</span>
+                        <span>45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-info">
+                        <span>Japanese</span>
+                        <span>30%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recommended For You</h2>
+                </div>
+                <p>Based on your progress in Spanish, we recommend practicing conversational skills next. This will help you become more fluent in everyday situations.</p>
+                <button class="cta-button" style="margin-top: 20px;">View Recommendations</button>
+            </div>
+        </section>
+
+        <!-- Streak Counter -->
+        <section class="streak-counter">
+            <div class="streak-label">Your Current Streak</div>
+            <div class="streak-number">12</div>
+            <div class="streak-label">days in a row! Keep it up! 🔥</div>
+        </section>
+
+        <!-- Language Cards -->
+        <h2 style="margin-bottom: 20px; font-size: 1.8rem;">Choose Your Language</h2>
+        <section class="languages">
+            <div class="language-card">
+                <div class="language-image">
+                    <img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Spanish language learning with cultural landmarks and flamenco dancer">
+                    <div class="language-flag">
+                        <img src="https://flagcdn.com/w320/es.png" alt="Flag of Spain">
+                    </div>
+                </div>
+                <div class="language-content">
+                    <h3 class="language-title">Spanish</h3>
+                    <p class="language-description">Learn the world's second most spoken language with interactive exercises and cultural insights.</p>
+                    <div class="language-footer">
+                        <span class="level intermediate">Intermediate</span>
+                        <button class="start-btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="language-card">
+                <div class="language-image">
+                    <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="French language learning with Eiffel Tower and Parisian scenery">
+                    <div class="language-flag">
+                        <img src="https://flagcdn.com/w320/fr.png" alt="Flag of France">
+                    </div>
+                </div>
+                <div class="language-content">
+                    <h3 class="language-title">French</h3>
+                    <p class="language-description">Master the language of love with pronunciation practice and vocabulary builders.</p>
+                    <div class="language-footer">
+                        <span class="level beginner">Beginner</span>
+                        <button class="start-btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="language-card">
+                <div class="language-image">
+                    <img src="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Japanese language learning with Tokyo cityscape and traditional culture">
+                    <div class="language-flag">
+                        <img src="https://flagcdn.com/w320/jp.png" alt="Flag of Japan">
+                    </div>
+                </div>
+                <div class="language-content">
+                    <h3 class="language-title">Japanese</h3>
+                    <p class="language-description">Discover Japanese through interactive lessons focusing on writing, speaking, and culture.</p>
+                    <div class="language-footer">
+                        <span class="level beginner">Beginner</span>
+                        <button class="start-btn">Start</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Quiz -->
+        <h2 style="margin-bottom: 20px; font-size: 1.8rem;">Quick Spanish Quiz</h2>
+        <section class="quiz-container">
+            <div class="quiz-header">
+                <h3 class="quiz-title">Vocabulary Check</h3>
+                <p>Test your knowledge of common Spanish words</p>
+            </div>
+            
+            <div class="quiz-progress">
+                <div class="quiz-progress-fill" style="width: 60%"></div>
+            </div>
+            
+            <div class="question-container">
+                <h4 class="question-text">How do you say "good morning" in Spanish?</h4>
+                <div class="options-container">
+                    <div class="option"><i class="fas fa-circle"></i> Buenos días</div>
+                    <div class="option"><i class="fas fa-circle"></i> Buenas tardes</div>
+                    <div class="option selected"><i class="fas fa-check-circle"></i> Buenos días</div>
+                    <div class="option"><i class="fas fa-circle"></i> Buenas noches</div>
+                </div>
+            </div>
+            
+            <div class="quiz-actions">
+                <button class="action-btn prev-btn">Previous</button>
+                <button class="action-btn next-btn">Next Question</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="celebration">
+        <div class="celebration-content">
+            <h2>¡Felicidades! 🎉</h2>
+            <p>You've completed today's Spanish lesson and earned 50 points!</p>
+            <button class="cta-button">Continue Learning</button>
+        </div>
+    </div>
+
+    <script>
+        // Interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Option selection
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    options.forEach(opt => {
+                        opt.classList.remove('selected');
+                        opt.querySelector('i').className = 'fas fa-circle';
+                    });
+                    this.classList.add('selected');
+                    this.querySelector('i').className = 'fas fa-check-circle';
+                });
+            });
+            
+            // Start language buttons
+            const startButtons = document.querySelectorAll('.start-btn');
+            startButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // In a real app, this would navigate to the language lesson
+                    document.querySelector('.celebration').classList.add('active');
+                });
+            });
+            
+            // Close celebration modal
+            document.querySelector('.celebration .cta-button').addEventListener('click', function() {
+                document.querySelector('.celebration').classList.remove('active');
+            });
+            
+            // Update streak counter with animation
+            const streakNumber = document.querySelector('.streak-number');
+            let currentStreak = parseInt(streakNumber.textContent);
+            
+            // Simulate adding a day to the streak
+            setTimeout(() => {
+                streakNumber.textContent = currentStreak + 1;
+                streakNumber.classList.add('pulse');
+                
+                setTimeout(() => {
+                    streakNumber.classList.remove('pulse');
+                }, 2000);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
